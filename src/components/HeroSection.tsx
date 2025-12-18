@@ -1,9 +1,15 @@
+"use client";
+
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import CandlestickBackground from '@/components/CandlestickBackground';
 import TickerBar from '@/components/TickerBar';
+import ContactDialog from '@/components/ContactDialog';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 
 const HeroSection = () => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
             {/* Background layers */}
@@ -44,14 +50,16 @@ const HeroSection = () => {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                        <Button variant="hero" size="xl">
+                        <Button variant="hero" size="xl" onClick={() => setIsDialogOpen(true)}>
                             Get Started
                             <ArrowRight className="w-5 h-5 ml-1" />
                         </Button>
-                        <Button variant="heroOutline" size="xl">
+                        <Button variant="heroOutline" size="xl" onClick={() => setIsDialogOpen(true)}>
                             Join Now
                         </Button>
                     </div>
+
+                    <ContactDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
 
                     {/* Stats */}
                     <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-border/50 animate-fade-in" style={{ animationDelay: '0.4s' }}>

@@ -1,12 +1,13 @@
 import { MapPin, Phone, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 const Footer = () => {
     return (
         <footer className="relative py-12 md:py-16 border-t border-border bg-card/50">
-            <div className="container px-4">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="grid md:grid-cols-2 gap-8 mb-12">
                     {/* Brand */}
-                    <div className="lg:col-span-2">
+                    <div >
                         <h3 className="text-2xl font-bold mb-4">
                             <span className="text-foreground">Monark</span>
                             <span className="text-primary"> FX</span>
@@ -18,24 +19,6 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
-                        <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-4">
-                            Quick Links
-                        </h4>
-                        <ul className="space-y-3">
-                            {['About Us', 'Courses', 'Mentorship', 'Contact'].map((link) => (
-                                <li key={link}>
-                                    <a
-                                        href="#"
-                                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                                    >
-                                        {link}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
 
                     {/* Contact Info */}
                     <div>
@@ -83,15 +66,15 @@ const Footer = () => {
                         © {new Date().getFullYear()} Monark FX. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6">
-                        <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                             Privacy Policy
-                        </a>
-                        <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link href="/terms-of-service" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                             Terms of Service
-                        </a>
-                        <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link href="/disclaimer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                             Disclaimer
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

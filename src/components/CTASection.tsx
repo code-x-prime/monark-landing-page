@@ -1,7 +1,13 @@
+"use client";
+
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import ContactDialog from '@/components/ContactDialog';
 import { ArrowRight, Zap } from 'lucide-react';
 
 const CTASection = () => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     return (
         <section className="relative py-20 md:py-28 overflow-hidden">
             {/* Background */}
@@ -43,14 +49,16 @@ const CTASection = () => {
 
                             {/* CTA Buttons */}
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Button variant="hero" size="xl">
+                                <Button variant="hero" size="xl" onClick={() => setIsDialogOpen(true)}>
                                     Get Started Now
                                     <ArrowRight className="w-5 h-5 ml-1" />
                                 </Button>
-                                <Button variant="heroOutline" size="xl">
+                                <Button variant="heroOutline" size="xl" onClick={() => setIsDialogOpen(true)}>
                                     Contact Us
                                 </Button>
                             </div>
+
+                            <ContactDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
 
                             {/* Trust note */}
                             <p className="text-sm text-muted-foreground mt-8">
