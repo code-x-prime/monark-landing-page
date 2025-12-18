@@ -6,16 +6,17 @@ const Footer = () => {
     return (
         <footer className="relative py-12 md:py-16 border-t border-border bg-card/50">
             <div className="max-w-7xl mx-auto px-4">
-                <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-8 mb-12">
                     {/* Brand */}
                     <div>
-                        <Link href="/" className="flex items-center gap-3 mb-4">
+                        <Link href="/" className="flex items-center ">
                             <Image
-                                src="/logo.png"
+                                src="/logo-light.png"
                                 alt="Monark FX Logo"
-                                width={50}
-                                height={50}
-                                className="w-20 h-20 md:w-40 md:h-40 object-contain"
+                                width={200}
+                                height={200}
+                                className="w-44 h-44 object-contain"
+                                priority
                             />
 
                         </Link>

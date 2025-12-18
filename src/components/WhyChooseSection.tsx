@@ -45,7 +45,7 @@ const WhyChooseSection = () => {
                 {/* Comparison Table */}
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="grid grid-cols-2 gap-2 md:gap-4 mb-6">
                         <div className="text-center">
                             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary/10 border border-primary/30">
                                 <span className="text-lg font-bold text-primary">Monark FX</span>
@@ -63,10 +63,10 @@ const WhyChooseSection = () => {
                         {comparisons.map((item, index) => (
                             <div
                                 key={index}
-                                className="grid grid-cols-2 gap-4"
+                                className="grid grid-cols-2 gap-2 md:gap-4"
                             >
                                 {/* Us */}
-                                <div className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors group">
+                                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors group">
                                     <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
                                         <Check className="w-4 h-4 text-green-500" />
                                     </div>

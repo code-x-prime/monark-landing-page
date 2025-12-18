@@ -29,13 +29,24 @@ const Navbar = () => {
             <div className="container px-4">
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3">
+                    <Link href="/" className="md:flex hidden items-center gap-3">
+                        <Image
+                            src="/logo-light.png"
+                            alt="Monark FX Logo"
+                            width={200}
+                            height={200}
+                            className="w-20 h-20 md:w-44 md:h-44 object-contain"
+                            priority
+                        />
+
+                    </Link>
+                    <Link href="/" className="flex md:hidden items-center gap-3">
                         <Image
                             src="/logo.png"
                             alt="Monark FX Logo"
-                            width={40}
-                            height={40}
-                            className="w-20 h-20 md:w-40 md:h-40 object-contain"
+                            width={200}
+                            height={200}
+                            className="w-20 h-20   object-cover p-2"
                             priority
                         />
 
