@@ -39,6 +39,7 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
     });
     const [errors, setErrors] = useState<FormErrors>({});
     const [isLoading, setIsLoading] = useState(false);
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
     const validateForm = (): boolean => {
         const newErrors: FormErrors = {};
@@ -76,10 +77,26 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
         }
 
         setIsLoading(true);
+        setSuccessMessage('');
+        setErrors({});
 
         try {
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to submit form');
+            }
+
+            // Show success message
+            setSuccessMessage(data.message || 'Form submitted successfully!');
 
             // Log data to console
             console.log('Contact Form Data:', {
@@ -90,20 +107,25 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
                 submittedAt: new Date().toISOString(),
             });
 
-            // Reset form
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                message: '',
-            });
-            setErrors({});
-
-            // Close dialog
-            onOpenChange(false);
-        } catch (error) {
+            // Reset form after 2 seconds
+            setTimeout(() => {
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    message: '',
+                });
+                setErrors({});
+                setSuccessMessage('');
+                // Close dialog
+                onOpenChange(false);
+            }, 2000);
+        } catch (error: unknown) {
             console.error('Error submitting form:', error);
-            setErrors({ email: 'Something went wrong. Please try again.' });
+            const errorMessage = error instanceof Error 
+                ? error.message 
+                : 'Something went wrong. Please try again.';
+            setErrors({ email: errorMessage });
         } finally {
             setIsLoading(false);
         }
@@ -134,6 +156,12 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
                         Fill out the form below and we&apos;ll get back to you as soon as possible.
                     </DialogDescription>
                 </DialogHeader>
+
+                {successMessage && (
+                    <div className="mt-4 p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+                        <p className="text-sm text-green-400 font-medium">{successMessage}</p>
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-4 mt-4">
                     {/* Name Field */}

@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
     return (
@@ -7,11 +8,17 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-4">
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
                     {/* Brand */}
-                    <div >
-                        <h3 className="text-2xl font-bold mb-4">
-                            <span className="text-foreground">Monark</span>
-                            <span className="text-primary"> FX</span>
-                        </h3>
+                    <div>
+                        <Link href="/" className="flex items-center gap-3 mb-4">
+                            <Image
+                                src="/logo.png"
+                                alt="Monark FX Logo"
+                                width={50}
+                                height={50}
+                                className="w-20 h-20 md:w-40 md:h-40 object-contain"
+                            />
+
+                        </Link>
                         <p className="text-muted-foreground text-sm max-w-md mb-6 leading-relaxed">
                             Professional forex and stock market education platform.
                             Building disciplined traders through structured learning,

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import ContactDialog from '@/components/ContactDialog';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -28,11 +29,16 @@ const Navbar = () => {
             <div className="container px-4">
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center">
-                        <span className="text-xl md:text-2xl font-bold">
-                            <span className="text-foreground">Monark</span>
-                            <span className="text-primary"> FX</span>
-                        </span>
+                    <Link href="/" className="flex items-center gap-3">
+                        <Image
+                            src="/logo.png"
+                            alt="Monark FX Logo"
+                            width={40}
+                            height={40}
+                            className="w-20 h-20 md:w-40 md:h-40 object-contain"
+                            priority
+                        />
+
                     </Link>
 
 
