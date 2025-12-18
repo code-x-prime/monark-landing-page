@@ -159,7 +159,6 @@ const CandlestickBackground = () => {
 
             // Keep enough candles on screen
             const maxX = Math.max(...candlesticks.map(c => c.x));
-            const minX = Math.min(...candlesticks.map(c => c.x));
 
             // Remove candles that are far off-screen left
             while (candlesticks.length > 0 && candlesticks[0].x - offset < -candleWidth * 3) {
