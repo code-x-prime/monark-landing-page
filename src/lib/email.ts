@@ -17,16 +17,18 @@ interface FormData {
 // Create transporter
 const createTransporter = () => {
     // Get credentials with proper fallback - check all possible variable names
-    // Priority: NEXT_PUBLIC_ variables first (for client-side access), then server-side only
-    const smtpUser = process.env.NEXT_PUBLIC_SMTP_USER
-        || process.env.SMTP_USER
+    // Priority: Server-side variables first (SMTP_*), then NEXT_PUBLIC_ variables
+    // Also handle common typos (SMPT instead of SMTP)
+    const smtpUser = process.env.SMTP_USER
+        || process.env.SMPT_USER  // Handle typo: SMPT instead of SMTP
+        || process.env.NEXT_PUBLIC_SMTP_USER
         || process.env.BREVO_SMTP_USER
-        || process.env.NEXT_PUBLIC_FROM_EMAIL
         || process.env.FROM_EMAIL
+        || process.env.NEXT_PUBLIC_FROM_EMAIL
         || process.env.EMAIL_USER;
 
-    const smtpPassword = process.env.NEXT_PUBLIC_SMTP_PASSWORD
-        || process.env.SMTP_PASSWORD
+    const smtpPassword = process.env.SMTP_PASSWORD
+        || process.env.NEXT_PUBLIC_SMTP_PASSWORD
         || process.env.BREVO_SMTP_KEY
         || process.env.BREVO_API_KEY
         || process.env.SMTP_APP_PASSWORD
@@ -34,16 +36,21 @@ const createTransporter = () => {
         || process.env.GMAIL_APP_PASSWORD;
 
     // Brevo SMTP settings (default) or custom
-    const smtpHost = process.env.NEXT_PUBLIC_SMTP_HOST
-        || process.env.SMTP_HOST
+    // Note: Handle common typos (SMPT instead of SMTP)
+    const smtpHost = process.env.SMTP_HOST
+        || process.env.SMPT_HOST  // Handle typo: SMPT instead of SMTP
+        || process.env.NEXT_PUBLIC_SMTP_HOST
         || process.env.BREVO_SMTP_HOST
         || 'smtp-relay.brevo.com';
     const smtpPort = parseInt(
-        process.env.NEXT_PUBLIC_SMTP_PORT
-        || process.env.SMTP_PORT
+        process.env.SMTP_PORT
+        || process.env.NEXT_PUBLIC_SMTP_PORT
         || process.env.BREVO_SMTP_PORT
         || '587'
     );
+
+    // Determine if we should use secure connection (port 465) or TLS (port 587)
+    const useSecure = smtpPort === 465;
 
 
     // Validate credentials
@@ -73,22 +80,61 @@ const createTransporter = () => {
         throw new Error(errorMsg);
     }
 
+    // Clean credentials (remove any whitespace, newlines, quotes)
+    const cleanUser = smtpUser.trim().replace(/^["']|["']$/g, '').replace(/\s+/g, '');
+    const cleanPassword = smtpPassword.trim().replace(/^["']|["']$/g, '').replace(/\s+/g, '');
+
+    // Validate Brevo SMTP credentials format
+    if (cleanUser && !cleanUser.includes('@smtp-brevo.com') && !cleanUser.includes('@smtp.brevo.com')) {
+        console.warn('Warning: SMTP User does not appear to be in Brevo format (should contain @smtp-brevo.com)');
+    }
+
+    if (cleanPassword && !cleanPassword.startsWith('xsmtpsib-')) {
+        console.warn('Warning: SMTP Password does not start with "xsmtpsib-". Make sure you are using SMTP Key, not API Key.');
+    }
+
+    // Log credentials format for debugging (only in development)
+    if (process.env.NODE_ENV === 'development') {
+        console.log('SMTP Auth Debug:');
+        console.log('- User format:', cleanUser.includes('@') ? 'Email format' : 'Username format');
+        console.log('- User preview:', cleanUser.substring(0, 15) + '...');
+        console.log('- User length:', cleanUser.length);
+        console.log('- Password starts with:', cleanPassword.substring(0, 10));
+        console.log('- Password length:', cleanPassword.length);
+        console.log('- Host:', smtpHost);
+        console.log('- Port:', smtpPort);
+    }
+
+    // Create transporter with Brevo-specific settings
     return nodemailer.createTransport({
         host: smtpHost,
         port: smtpPort,
-        secure: false, // true for 465, false for other ports
+        secure: useSecure,
         auth: {
-            user: smtpUser,
-            pass: smtpPassword,
+            user: cleanUser,
+            pass: cleanPassword,
         },
+        tls: {
+            rejectUnauthorized: false,
+            minVersion: 'TLSv1.2',
+        },
+        ...(smtpPort === 587 && !useSecure ? { requireTLS: true } : {}),
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
     });
 };
 
 // Send email function
 export async function sendOtpEmail({ to, subject, text, html }: EmailOptions) {
     const transporter = createTransporter();
-    const fromEmail = process.env.NEXT_PUBLIC_FROM_EMAIL || process.env.SMTP_USER || 'noreply@monarkfx.com';
+    const fromEmail = process.env.FROM_EMAIL
+        || process.env.NEXT_PUBLIC_FROM_EMAIL
+        || process.env.SMTP_USER
+        || 'noreply@monarkfx.com';
     const fromName = process.env.FROM_NAME || 'Monark FX';
+
+    console.log(`Attempting to send email to: ${to}`);
+    console.log(`From: ${fromEmail}`);
 
     try {
         const info = await transporter.sendMail({
@@ -101,8 +147,25 @@ export async function sendOtpEmail({ to, subject, text, html }: EmailOptions) {
 
         console.log('Email sent successfully:', info.messageId);
         return { success: true, messageId: info.messageId };
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('Error sending email:', error);
+
+        // Provide helpful error message for authentication failures
+        if (error instanceof Error && error.message.includes('535')) {
+            const authError = new Error(
+                `Brevo SMTP Authentication Failed.\n\n` +
+                `Please verify your Brevo SMTP credentials:\n` +
+                `1. Go to Brevo Dashboard → Settings → SMTP & API → SMTP tab\n` +
+                `2. Check your SMTP Login (should be like: 7a3825001@smtp-brevo.com)\n` +
+                `3. Check your SMTP Key (should start with: xsmtpsib-)\n` +
+                `4. Make sure you're using SMTP Key, NOT API Key\n` +
+                `5. Copy the exact values to .env.local (no quotes, no spaces)\n` +
+                `6. Restart your dev server after updating .env.local\n\n` +
+                `Original error: ${error.message}`
+            );
+            throw authError;
+        }
+
         throw error;
     }
 }
