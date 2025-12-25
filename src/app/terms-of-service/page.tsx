@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Terms of Service',
@@ -32,6 +33,36 @@ export const metadata: Metadata = {
 export default function TermsOfService() {
     return (
         <div className="container px-4 py-16 md:py-24 max-w-4xl mx-auto">
+            {/* Navigation Links */}
+            <div className="mb-8 p-4 rounded-lg bg-card border border-border">
+                <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+                    <Link
+                        href="/privacy-policy"
+                        className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                    >
+                        Privacy Policy
+                    </Link>
+                    <span className="text-muted-foreground">•</span>
+                    <span className="text-sm font-medium text-primary">
+                        Terms of Service
+                    </span>
+                    <span className="text-muted-foreground">•</span>
+                    <Link
+                        href="/disclaimer"
+                        className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                    >
+                        Disclaimer
+                    </Link>
+                </div>
+            </div>
+
+            {/* Risk Warning Box */}
+            <div className="mb-8 p-6 rounded-lg bg-[#3d1a1a] border border-[#dc2626]/50">
+                <p className="text-white text-base leading-relaxed">
+                    <strong>Remember:</strong> Only trade with capital you can afford to lose. Trading involves risk, and you may lose your entire investment.
+                </p>
+            </div>
+
             <div className="prose prose-invert max-w-none">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
                     Terms of Service
