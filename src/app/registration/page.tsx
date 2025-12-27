@@ -164,44 +164,44 @@ export default function RegistrationPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background py-12 md:py-20">
-            <div className="container px-4 max-w-5xl mx-auto">
+        <div className="min-h-screen bg-background pt-20 sm:pt-24 md:pt-28 py-6 sm:py-8 md:py-12 lg:py-20">
+            <div className="container px-3 sm:px-4 md:px-6 max-w-5xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-2 text-foreground">
+                <div className="text-center mb-6 sm:mb-8">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-foreground">
                         Registration Form
                     </h1>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-base sm:text-lg text-muted-foreground">
                         You Choose Right!!
                     </p>
-                    <p className="text-sm text-muted-foreground mt-4">
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-2 sm:mt-4 px-2">
                         Welcome Here, You are proving yourself different, because you choose to take risk.
                     </p>
                 </div>
 
                 {/* Success Message */}
                 {successMessage && (
-                    <div className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/30">
-                        <p className="text-sm text-green-400 font-medium">{successMessage}</p>
+                    <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+                        <p className="text-xs sm:text-sm text-green-400 font-medium">{successMessage}</p>
                     </div>
                 )}
 
                 {/* Error Message */}
                 {errors.submit && (
-                    <div className="mb-6 p-4 rounded-lg bg-primary/10 border border-primary/30">
-                        <p className="text-sm text-primary font-medium">{errors.submit}</p>
+                    <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg bg-primary/10 border border-primary/30">
+                        <p className="text-xs sm:text-sm text-primary font-medium">{errors.submit}</p>
                     </div>
                 )}
 
                 {/* Registration Form */}
-                <form onSubmit={handleSubmit} className="bg-card border border-border rounded-lg p-6 md:p-8">
+                <form onSubmit={handleSubmit} className="bg-card border border-border rounded-lg p-4 sm:p-6 md:p-8">
                     {/* Your Information Section */}
-                    <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-primary mb-6 pb-2 border-b border-primary/30">
+                    <div className="mb-6 sm:mb-8">
+                        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6 pb-2 border-b border-primary/30">
                             YOUR INFORMATION
                         </h2>
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                             {/* Left Column */}
                             <div className="space-y-4">
                                 <div>
@@ -251,7 +251,7 @@ export default function RegistrationPage() {
                                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                             </Button>
                                         </DropdownMenuTrigger>
-                                        <DropdownMenuContent className="w-full">
+                                        <DropdownMenuContent align="start">
                                             <DropdownMenuItem
                                                 onClick={() => {
                                                     setFormData((prev) => ({ ...prev, experience: 'Fresher' }));
@@ -314,7 +314,7 @@ export default function RegistrationPage() {
                                     <Label className="text-sm font-medium mb-2 block">
                                         Date of Birth <span className="text-primary">*</span>
                                     </Label>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-1 sm:gap-2">
                                         <Input
                                             type="text"
                                             value={formData.dateOfBirth.day}
@@ -322,9 +322,9 @@ export default function RegistrationPage() {
                                             disabled={isLoading}
                                             placeholder="DD"
                                             maxLength={2}
-                                            className="w-20 text-center"
+                                            className="w-16 sm:w-20 text-center text-sm sm:text-base"
                                         />
-                                        <span className="text-muted-foreground">/</span>
+                                        <span className="text-muted-foreground text-sm sm:text-base">/</span>
                                         <Input
                                             type="text"
                                             value={formData.dateOfBirth.month}
@@ -332,9 +332,9 @@ export default function RegistrationPage() {
                                             disabled={isLoading}
                                             placeholder="MM"
                                             maxLength={2}
-                                            className="w-20 text-center"
+                                            className="w-16 sm:w-20 text-center text-sm sm:text-base"
                                         />
-                                        <span className="text-muted-foreground">/</span>
+                                        <span className="text-muted-foreground text-sm sm:text-base">/</span>
                                         <Input
                                             type="text"
                                             value={formData.dateOfBirth.year}
@@ -342,11 +342,11 @@ export default function RegistrationPage() {
                                             disabled={isLoading}
                                             placeholder="YYYY"
                                             maxLength={4}
-                                            className="w-24 text-center"
+                                            className="w-20 sm:w-24 text-center text-sm sm:text-base"
                                         />
                                     </div>
                                     {errors.dateOfBirth && (
-                                        <p className="text-sm text-primary mt-1">{errors.dateOfBirth}</p>
+                                        <p className="text-xs sm:text-sm text-primary mt-1">{errors.dateOfBirth}</p>
                                     )}
                                 </div>
 
@@ -367,7 +367,7 @@ export default function RegistrationPage() {
                                             }
                                         }}
                                         disabled={isLoading}
-                                        className="flex gap-4"
+                                        className="flex flex-wrap gap-3 sm:gap-4"
                                     >
                                         {['Male', 'Female', 'Other'].map((option) => (
                                             <div key={option} className="flex items-center space-x-2">
@@ -481,7 +481,7 @@ export default function RegistrationPage() {
                                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                             </Button>
                                         </DropdownMenuTrigger>
-                                        <DropdownMenuContent className="w-full">
+                                        <DropdownMenuContent align="start">
                                             <DropdownMenuItem
                                                 onClick={() => {
                                                     setFormData((prev) => ({ ...prev, maritalStatus: 'Single' }));
@@ -586,18 +586,18 @@ export default function RegistrationPage() {
                     </div>
 
                     {/* Course Selection Section */}
-                    <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-primary mb-6 pb-2 border-b border-primary/30">
+                    <div className="mb-6 sm:mb-8">
+                        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6 pb-2 border-b border-primary/30">
                             COURSE SELECTION
                         </h2>
 
-                        <div className="space-y-6">
+                        <div className="space-y-4 sm:space-y-6">
                             {/* IAT Course */}
-                            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-                                <h3 className="font-semibold text-foreground mb-2">
+                            <div className="p-3 sm:p-4 rounded-lg border border-border bg-secondary/30">
+                                <h3 className="font-semibold text-foreground mb-2 text-sm sm:text-base">
                                     INST. ADVANCE TRADING
                                 </h3>
-                                <p className="text-sm text-muted-foreground mb-4">
+                                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                                     (INDIAN CASH & DERIVATIVE MARKET) - IAT
                                 </p>
                                 <RadioGroup
@@ -613,7 +613,7 @@ export default function RegistrationPage() {
                                         }
                                     }}
                                     disabled={isLoading}
-                                    className="flex flex-wrap gap-4"
+                                    className="flex flex-wrap gap-2 sm:gap-4"
                                 >
                                     {['ONE SEGMENT', 'BOTH SEGMENT - COMBO'].map((option) => (
                                         <div key={option} className="flex items-center space-x-2">
@@ -630,11 +630,11 @@ export default function RegistrationPage() {
                             </div>
 
                             {/* ACT Course */}
-                            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-                                <h3 className="font-semibold text-foreground mb-2">
+                            <div className="p-3 sm:p-4 rounded-lg border border-border bg-secondary/30">
+                                <h3 className="font-semibold text-foreground mb-2 text-sm sm:text-base">
                                     Alpha Currency Trader
                                 </h3>
-                                <p className="text-sm text-muted-foreground mb-4">
+                                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                                     (FOREX & CRYPTOCURRENCY MARKET) - ACT
                                 </p>
                                 <RadioGroup
@@ -650,7 +650,7 @@ export default function RegistrationPage() {
                                         }
                                     }}
                                     disabled={isLoading}
-                                    className="flex flex-wrap gap-4"
+                                    className="flex flex-wrap gap-2 sm:gap-4"
                                 >
                                     {['ONE SEGMENT', 'BOTH SEGMENT - COMBO'].map((option) => (
                                         <div key={option} className="flex items-center space-x-2">
@@ -685,13 +685,13 @@ export default function RegistrationPage() {
                     </div>
 
                     {/* Submit Button */}
-                    <div className="flex justify-center gap-4 pt-6 border-t border-border">
+                    <div className="flex justify-center gap-4 pt-4 sm:pt-6 border-t border-border">
                         <Button
                             type="submit"
                             variant="default"
                             size="lg"
                             disabled={isLoading}
-                            className="min-w-[200px]"
+                            className="w-full sm:w-auto min-w-[200px] text-sm sm:text-base"
                         >
                             {isLoading ? (
                                 <>
