@@ -7,13 +7,13 @@ import CTASection from '@/components/CTASection';
 export default function Home() {
   return (
     <>
-      <HeroSection />
-      <div className="section-divider" />
-      <TrustSection />
-      <FeaturesSection />
-      <div className="section-divider" />
-      <WhyChooseSection />
-      <CTASection />
+        <HeroSection />
+        <div className="section-divider" />
+        <TrustSection />
+        <FeaturesSection />
+        <div className="section-divider" />
+        <WhyChooseSection />
+        <CTASection />
     </>
   );
 }

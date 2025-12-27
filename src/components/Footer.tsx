@@ -73,13 +73,19 @@ const Footer = () => {
                     <p className="text-sm text-muted-foreground">
                         © {new Date().getFullYear()} Monark FX. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-6">
+                    <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+                        <Link href="/registration" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                            Registration
+                        </Link>
+                        <span className="text-muted-foreground hidden md:inline">•</span>
                         <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                             Privacy Policy
                         </Link>
+                        <span className="text-muted-foreground hidden md:inline">•</span>
                         <Link href="/terms-of-service" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                             Terms of Service
                         </Link>
+                        <span className="text-muted-foreground hidden md:inline">•</span>
                         <Link href="/disclaimer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                             Disclaimer
                         </Link>

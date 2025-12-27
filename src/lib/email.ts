@@ -356,3 +356,202 @@ export function getUserThankYouTemplate({ name }: { name: string }): string {
     `;
 }
 
+// Registration admin email template
+interface RegistrationFormData {
+    fullName?: string;
+    fathersName?: string;
+    experience?: string;
+    yearsOfExperience?: string;
+    dateOfBirth?: { day?: string; month?: string; year?: string };
+    gender?: string;
+    address?: string;
+    zipCode?: string;
+    email?: string;
+    mobNumber?: string;
+    alternatePhone?: string;
+    maritalStatus?: string;
+    occupation?: string;
+    education?: string;
+    city?: string;
+    courseIAT?: string;
+    courseACT?: string;
+    reference?: string;
+}
+
+export function getRegistrationAdminTemplate(formData: RegistrationFormData): string {
+    const logoUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://monarkfx.com';
+    const logoImageUrl = `${logoUrl.replace(/\/$/, '')}/logo.png`;
+
+    const dateOfBirth = formData.dateOfBirth?.day && formData.dateOfBirth?.month && formData.dateOfBirth?.year
+        ? `${formData.dateOfBirth.day}/${formData.dateOfBirth.month}/${formData.dateOfBirth.year}`
+        : 'Not provided';
+
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Registration Form Submission</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0a; color: #ffffff;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #0a0a0a;">
+        <tr>
+            <td style="padding: 40px 20px;">
+                <table role="presentation" style="max-width: 700px; margin: 0 auto; background-color: #1a1a1a; border-radius: 12px; border: 1px solid #dc2626; overflow: hidden;">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); padding: 30px; text-align: center;">
+                            <div style="margin-bottom: 15px; text-align: center;">
+                                <img src="${logoImageUrl}" alt="Monark FX Logo" width="60" height="60" style="width: 60px; height: 60px; max-width: 60px; display: block; margin: 0 auto; object-fit: contain;" />
+                            </div>
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">New Registration Form Submission</h1>
+                            <p style="margin: 10px 0 0 0; color: #ffffff; opacity: 0.9; font-size: 14px;">Monark FX - Trading Education Platform</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <p style="margin: 0 0 20px 0; color: #e5e5e5; font-size: 16px; line-height: 1.6;">
+                                You have received a new registration form submission from your website.
+                            </p>
+                            
+                            <div style="background-color: #262626; border-left: 4px solid #dc2626; padding: 25px; border-radius: 8px; margin: 25px 0;">
+                                <h2 style="margin: 0 0 20px 0; color: #ffffff; font-size: 20px; font-weight: bold;">Personal Information</h2>
+                                <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; width: 180px; vertical-align: top;"><strong>Full Name:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px; font-weight: 500;">${formData.fullName || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Father&apos;s Name:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.fathersName || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Date of Birth:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${dateOfBirth}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Gender:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.gender || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Marital Status:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.maritalStatus || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Address:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px; line-height: 1.6;">${formData.address || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>City:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.city || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Zip Code:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.zipCode || 'Not provided'}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="background-color: #262626; border-left: 4px solid #dc2626; padding: 25px; border-radius: 8px; margin: 25px 0;">
+                                <h2 style="margin: 0 0 20px 0; color: #ffffff; font-size: 20px; font-weight: bold;">Contact Information</h2>
+                                <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; width: 180px;"><strong>Email:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">
+                                            <a href="mailto:${formData.email}" style="color: #dc2626; text-decoration: none;">${formData.email}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px;"><strong>Mobile Number:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">
+                                            <a href="tel:${formData.mobNumber}" style="color: #dc2626; text-decoration: none;">${formData.mobNumber || 'Not provided'}</a>
+                                        </td>
+                                    </tr>
+                                    ${formData.alternatePhone ? `
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px;"><strong>Alternate Phone:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">
+                                            <a href="tel:${formData.alternatePhone}" style="color: #dc2626; text-decoration: none;">${formData.alternatePhone}</a>
+                                        </td>
+                                    </tr>
+                                    ` : ''}
+                                </table>
+                            </div>
+
+                            <div style="background-color: #262626; border-left: 4px solid #dc2626; padding: 25px; border-radius: 8px; margin: 25px 0;">
+                                <h2 style="margin: 0 0 20px 0; color: #ffffff; font-size: 20px; font-weight: bold;">Professional Information</h2>
+                                <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; width: 180px; vertical-align: top;"><strong>Experience/Fresher:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.experience || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Years of Experience:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.yearsOfExperience || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Occupation:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.occupation || 'Not provided'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Education:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.education || 'Not provided'}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="background-color: #262626; border-left: 4px solid #dc2626; padding: 25px; border-radius: 8px; margin: 25px 0;">
+                                <h2 style="margin: 0 0 20px 0; color: #ffffff; font-size: 20px; font-weight: bold;">Course Selection</h2>
+                                <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; width: 180px; vertical-align: top;"><strong>INST. ADVANCE TRADING (IAT):</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px; font-weight: 500;">${formData.courseIAT || 'Not selected'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Alpha Currency Trader (ACT):</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px; font-weight: 500;">${formData.courseACT || 'Not selected'}</td>
+                                    </tr>
+                                    ${formData.reference ? `
+                                    <tr>
+                                        <td style="padding: 8px 0; color: #a3a3a3; font-size: 14px; vertical-align: top;"><strong>Reference:</strong></td>
+                                        <td style="padding: 8px 0; color: #ffffff; font-size: 14px;">${formData.reference}</td>
+                                    </tr>
+                                    ` : ''}
+                                </table>
+                            </div>
+                            
+                            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #404040;">
+                                <p style="margin: 0; color: #a3a3a3; font-size: 12px; text-align: center;">
+                                    Submitted on ${new Date().toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    })}
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #0f0f0f; padding: 20px 30px; text-align: center; border-top: 1px solid #404040;">
+                            <p style="margin: 0; color: #737373; font-size: 12px;">
+                                This is an automated email from <a href="https://monarkfx.com" style="color: #dc2626; text-decoration: none;">monarkfx.com</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
+}
+

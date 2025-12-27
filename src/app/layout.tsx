@@ -104,7 +104,7 @@ export default function RootLayout({
         <div className="min-h-screen bg-background flex flex-col">
           <Navbar />
           <main className="flex-1">
-            {children}
+        {children}
           </main>
           <Footer />
         </div>
