@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import CandlestickBackground from '@/components/CandlestickBackground';
 import TickerBar from '@/components/TickerBar';
 import ContactDialog from '@/components/ContactDialog';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight, TrendingUp, Phone } from 'lucide-react';
 
 const HeroSection = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -54,8 +54,13 @@ const HeroSection = () => {
                             Get Started
                             <ArrowRight className="w-5 h-5 ml-1" />
                         </Button>
-                        <Button variant="heroOutline" size="xl" onClick={() => setIsDialogOpen(true)}>
-                            Join Now
+                        <Button
+                            variant="heroOutline"
+                            size="xl"
+                            onClick={() => window.location.href = 'tel:+919220797499'}
+                        >
+                            <Phone className="w-5 h-5 mr-2" />
+                            Call Now
                         </Button>
                     </div>
 

@@ -11,6 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface ContactDialogProps {
     open: boolean;
@@ -31,6 +32,7 @@ interface FormErrors {
 }
 
 const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
+    const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
@@ -119,11 +121,12 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
                 setSuccessMessage('');
                 // Close dialog
                 onOpenChange(false);
+                router.push('/thank-you');
             }, 2000);
         } catch (error: unknown) {
             console.error('Error submitting form:', error);
-            const errorMessage = error instanceof Error 
-                ? error.message 
+            const errorMessage = error instanceof Error
+                ? error.message
                 : 'Something went wrong. Please try again.';
             setErrors({ email: errorMessage });
         } finally {

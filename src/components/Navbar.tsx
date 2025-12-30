@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import ContactDialog from '@/components/ContactDialog';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Phone } from 'lucide-react';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -55,7 +56,16 @@ const Navbar = () => {
 
 
                     {/* CTA Button */}
-                    <div >
+                    <div className="flex items-center gap-4">
+                        <Button
+                            variant="outline"
+                            size="default"
+                            className="hidden md:flex items-center gap-2"
+                            onClick={() => window.location.href = 'tel:+919220797499'}
+                        >
+                            <Phone className="w-4 h-4" />
+                            Call Now
+                        </Button>
                         <Button variant="default" size="default" onClick={() => setIsDialogOpen(true)}>
                             Get Started
                         </Button>

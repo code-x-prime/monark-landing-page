@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2, ChevronDown } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function RegistrationPage() {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         fullName: '',
         fathersName: '',
@@ -119,6 +121,7 @@ export default function RegistrationPage() {
                 });
                 setErrors({});
                 setSuccessMessage('');
+                router.push('/thank-you');
             }, 3000);
         } catch (error: unknown) {
             console.error('Error submitting form:', error);
