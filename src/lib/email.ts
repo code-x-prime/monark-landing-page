@@ -242,7 +242,8 @@ export function getAdminEmailTemplate(formData: FormData): string {
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+        timeZone: 'Asia/Kolkata'
     })}
                                 </p>
                             </div>
@@ -531,7 +532,8 @@ export function getRegistrationAdminTemplate(formData: RegistrationFormData): st
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+        timeZone: 'Asia/Kolkata'
     })}
                                 </p>
                             </div>
